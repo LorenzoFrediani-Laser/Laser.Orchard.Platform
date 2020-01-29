@@ -23,11 +23,19 @@ namespace Laser.Orchard.Braintree.Controllers {
         private readonly IOrchardServices _orchardServices;
         private readonly BraintreePosService _posService;
         private readonly IBraintreeService _braintreeService;
+        private readonly IEnumerable<IBraintreePaymentInformationProvider> _paymentInfoProviders;
 
-        public BraintreeController(IOrchardServices orchardServices, IRepository<PaymentRecord> repository, IPaymentEventHandler paymentEventHandler, IBraintreeService braintreeService) {
+        public BraintreeController(
+            IOrchardServices orchardServices, 
+            IRepository<PaymentRecord> repository, 
+            IPaymentEventHandler paymentEventHandler, 
+            IBraintreeService braintreeService,
+            IEnumerable<IBraintreePaymentInformationProvider> paymentInfoProviders) {
+
             _orchardServices = orchardServices;
             _posService = new BraintreePosService(orchardServices, repository, paymentEventHandler);
             _braintreeService = braintreeService;
+            _paymentInfoProviders = paymentInfoProviders;
 
             Logger = NullLogger.Instance;
         }
@@ -58,6 +66,14 @@ namespace Laser.Orchard.Braintree.Controllers {
             PaymentVM model = new PaymentVM();
             model.Record = payment;
             model.TenantBaseUrl = Url.Action("Index").Replace("/Laser.Orchard.Braintree/Braintree", "");
+            // Allow manipulation of PaymentVM by services to add information into it
+            // This has become required to make sure out integration complies with 3DS2
+            // because we need to forward more info to the shape, and not all possible 
+            // information is always available (besides it not being available here)
+            // https://developers.braintreepayments.com/guides/3d-secure/client-side/javascript/v3
+            foreach(var pip in _paymentInfoProviders) {
+                model = pip.AddInformation(model);
+            }
             return View("Index", model);
         }
 

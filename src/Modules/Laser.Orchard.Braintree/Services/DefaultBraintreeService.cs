@@ -1,4 +1,5 @@
 ﻿using Laser.Orchard.Braintree.Models;
+using Laser.Orchard.Braintree.ViewModels;
 using Laser.Orchard.PaymentGateway.Models;
 using Newtonsoft.Json;
 using Orchard;
@@ -11,7 +12,9 @@ using Bt = Braintree;
 
 
 namespace Laser.Orchard.Braintree.Services {
-    public class DefaultBraintreeService : IBraintreeService {
+    public class DefaultBraintreeService 
+        : IBraintreeService {
+        
         private readonly IOrchardServices _orchardServices;
         private readonly IContentManager _contentManager;
 
@@ -24,9 +27,17 @@ namespace Laser.Orchard.Braintree.Services {
         }
 
         public string GetClientToken() {
+            var config = _orchardServices.WorkContext
+                 .CurrentSite.As<BraintreeSiteSettingsPart>();
+            string merchant = config?.MerchantAccountId;
             var gateway = GetGateway();
-            var clientToken = gateway.ClientToken.generate();
-            return clientToken;
+            if (string.IsNullOrWhiteSpace(merchant)) {
+                return gateway.ClientToken.generate();
+            }
+            return gateway.ClientToken
+                .generate(new Bt.ClientTokenRequest {
+                    MerchantAccountId = merchant
+                });
         }
 
         public TransactionResult Pay(
