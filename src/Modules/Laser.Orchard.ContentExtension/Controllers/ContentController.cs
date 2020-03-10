@@ -163,7 +163,7 @@ namespace Laser.Orchard.ContentExtension.Controllers {
                             foreach (string val in elencovalori) {
                                 ElementDetail tvm = new ElementDetail();
                                 tvm.Name = val;
-                                tvm.Value = _localizedStringManager.GetLocalizedString("UserEnumeratore", val, Language);
+                                tvm.Value = _localizedStringManager.GetLocalizedString(new List<string> { "UserEnumeratore" }, val, Language).Item1;
                                 ele.Add(tvm);
                             }
                             ResponseElement re = new ResponseElement();

@@ -115,7 +115,7 @@ namespace Laser.Orchard.StartupConfig.Controllers {
                                 //      Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
                                 List<string> elencoValoriInLingua = new List<string>();
                                 foreach (string val in elencovalori) {
-                                    elencoValoriInLingua.Add(_localizedStringManager.GetLocalizedString("UserEnumeratore", val, Language));    //T.Target.(elencovalori[0],)
+                                    elencoValoriInLingua.Add(_localizedStringManager.GetLocalizedString(new List<string> { "UserEnumeratore" }, val, Language).Item1);    //T.Target.(elencovalori[0],)
                                 }
                                 eObj.Add(singleField.Name + "valori", singleField.PartFieldDefinition.Settings["EnumerationFieldSettings.Options"]);
                                 eObj.Add(singleField.Name + "valoriLang", String.Join("\r\n", elencoValoriInLingua));
