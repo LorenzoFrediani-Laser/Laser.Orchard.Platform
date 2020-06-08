@@ -804,8 +804,8 @@ input[type="number"]:focus {
 }
 
 .tab-pane {
-    margin-top: 15px;
-    background: #EEE;
+    /*margin-top: 15px;
+    background: #EEE;*/
 }
 
 .tab-content > .active {
@@ -840,11 +840,14 @@ input[type="number"]:focus {
 }
 
 .nav-tabs > li > a {
-    padding: 0 8px;
+    /*padding: 0 8px;*/
+    position: relative;
+    display: block;
+    padding: 10px 15px;
 }
 
 .nav-tabs > li {
-    min-height: 80px;
+    /*min-height: 80px;*/
 }
 
     .nav-tabs > li > a {
@@ -7468,7 +7471,7 @@ li.dropdown-progress {
 .nav-tabs > li.active > a:focus {
     border: none;
     border-bottom: 2px solid #fff;
-    color: #00ccff;
+    /*color: #00ccff;*/
     background-color: transparent;
     cursor: default;
     opacity: 1;
@@ -11663,4 +11666,14 @@ select:focus, textarea:focus, input.text:focus, input.text-box:focus, input.text
 .contentItems.bulk-items .summary .related a.btn {
     color: #fff;
     margin-left: 5px;
+}
+
+.manage-type .content {
+    min-height: unset;
+}
+
+.info-box-text, .info-box-number {
+    text-transform: none;
+    font-size: 0.9em;
+    line-height: 1.6em;
 }
