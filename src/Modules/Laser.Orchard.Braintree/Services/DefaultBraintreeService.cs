@@ -53,6 +53,11 @@ namespace Laser.Orchard.Braintree.Services {
                 PaymentMethodNonce = paymentMethodNonce,
                 MerchantAccountId = merchant
             };
+            if (config.AutomaticPayment) {
+                request.Options = new Bt.TransactionOptionsRequest {
+                    SubmitForSettlement = config.AutomaticPayment
+                };
+            }
             if (customFields != null) {
                 request.CustomFields = customFields;
             }
@@ -114,6 +119,11 @@ namespace Laser.Orchard.Braintree.Services {
                 MerchantAccountId = merchant,
                 PurchaseOrderNumber = context.PurchaseOrder
             };
+            if (config.AutomaticPayment) {
+                request.Options = new Bt.TransactionOptionsRequest {
+                    SubmitForSettlement = config.AutomaticPayment
+                };
+            }
             if (context.CustomFields != null) {
                 request.CustomFields = context.CustomFields;
             }
