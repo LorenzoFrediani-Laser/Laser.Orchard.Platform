@@ -5,6 +5,7 @@
   Place  aaFields_Numeric__CommonPart-Creator="-"/>
   Place  aaFields_Numeric__CommonPart-LastModifier="-"/>
   -->
+  <Place Parts_Common_SummaryInfoFor_Edit="Content:before.1" />
   <Place Parts_JsonDataTable_Edit="Content:2" Fields_JsonDataTable_Edit="Content:3"/>
   
   <Place Parts_FavoriteCulturePart_Edit="Content:2" />
@@ -66,6 +67,12 @@
   <!-- Content Picker Creation-->
   <Place Fields_ContentPickerCreateItem_Edit="Content:2.3.1" />
   <Place Parts_ContentPickerCreateItem_EditExtension="Sidebar:25.1" />
+
+  <!-- User OwnedFolder-->
+  <Place Parts_OwnedFolder_Edit="Content:9"/>
+
+  <!-- TinyMce Enhancement -->
+  <Place Parts_TinyMceSiteSettings_Edit="Content:1" />
 
   <!-- Per Item Cache -->
   <Place Parts_PerItemCachePart="Content:11" />
